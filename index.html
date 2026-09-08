@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KingRestaurant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Foodie</div>
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="pages/menu.html" class="">Menu</a>
+            <a href="pages/cart.html" class="">Cart(<span id="cart-count">0</span>)</a>
+            <a href="pages/login.html" class="">Login</a>
+        </nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Foodie</h1>
+            <p>Experience the best food in town!</p>
+            <div class="search-box">
+                <input type="text" placeholder="search for food" id="searchinput">
+                <button class="explore-btn">Explore Menu</button>
+            </div>
+        </div>
+    </section>
+
+
+<section class="fooddisplay">
+    <h2 id="our-menu">Our Menu</h2>
+    <div class="categories">
+        <button class="category-btn active">All</button>
+        <button class="category-btn">Biryani</button>
+        <button class="category-btn">Pizza</button>
+        <button class="category-btn">Burger</button>
+        <button class="category-btn">Dessert</button>
+    </div>
+    <div class="fooditems">
+        <div class="fooditem" data-category="pizza">
+            <img src="./images/ChickenPizza.jpg" alt="Chicken Pizza">
+            <h3>Chicken Pizza</h3>
+            <p>A delicious pizza with grilled chicken and fresh vegetables.</p>
+            <h4>$12.99</h4>
+            <button class="addtocart-btn">Add to Cart</button>
+        </div>
+
+        <div class="fooditem" data-category="biryani">
+            <img src="./images/ChickenBiryani.jpg" alt="Chicken Biryani">
+            <h3>Chicken Biryani</h3>
+            <p>Delicious chicken biryani with aromatic spices.</p>
+            <h4>$10.99</h4>
+            <button class="addtocart-btn">Add to Cart</button>
+        </div>
+
+        <div class="fooditem" data-category="burger">
+            <img src="./images/ChickenBurger.jpg" alt="Chicken Burger">
+            <h3>Chicken Burger</h3>
+            <p>A juicy chicken burger with fresh lettuce and tomato.</p>
+            <h4>$8.99</h4>
+            <button class="addtocart-btn">Add to Cart</button>
+        </div>
+
+        <div class="fooditem" data-category="dessert">
+            <img src="./images/IceCrream.jpg" alt="Ice Cream">
+            <h3>Ice Cream</h3>
+            <p>A delicious dessert with a variety of flavors.</p>
+            <h4>$5.99</h4>
+            <button class="addtocart-btn">Add to Cart</button>
+        </div>
+
+        <div class="fooditem" data-category="biryani">
+            <img src="./images/MuttonBiryani.jpg" alt="Mutton Biryani">
+            <h3>Mutton Biryani</h3>
+            <p>Delicious mutton biryani with aromatic spices.</p>
+            <h4>$12.99</h4>
+            <button class="addtocart-btn">Add to Cart</button>
+        </div>
+
+        <div class="fooditem" data-category="dessert">
+            <img src="./images/MangoKulfhi.jpg" alt="Mango Kulfi">
+            <h3>Mango Kulfi</h3>
+            <p>A delicious mango-flavored ice cream.</p>
+            <h4>$4.99</h4>
+            <button class="addtocart-btn">Add to Cart</button>
+        </div>
+
+    </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
