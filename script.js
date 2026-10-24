@@ -48,12 +48,17 @@ function displayCart()
     {
         let cartItem = document.createElement("div");
         cartItem.innerHTML = `
-            <p>${item.name} - $${item.price.toFixed(2)}</p>
-            <button class="decrease-btn">-</button>
-            <span class="quantity">${item.quantity}</span>
-            <button class="increase-btn">+</button>
-            <button class="remove-btn">Remove</button>
-        `;
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                        <p>$${item.price.toFixed(2)} each</p>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="decrease-btn">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="increase-btn">+</button>
+                        <button class="remove-btn">Remove</button>
+                        </div>
+                        `;
         cartItems.appendChild(cartItem);
         let increaseButton = cartItem.querySelector(".increase-btn");
         increaseButton.addEventListener("click", function()
@@ -132,22 +137,10 @@ let searchInput = document.querySelector("#searchinput");
 let foodItems = document.querySelectorAll(".fooditems > div");
 if(searchInput !== null)
 {
-    searchInput.addEventListener("input",function()
-{
-    let searchText = searchInput.value.toLowerCase();
-    foodItems.forEach(function(foodItem)
-{
-    let foodName = foodItem.querySelector("h3").innerText.toLowerCase();
-    if(foodName.includes(searchText))
+    searchInput.addEventListener("input", function()
     {
-        foodItem.style.display = "block";
-    }
-    else
-    {
-        foodItem.style.display= "none";
-    }
-});
-});
+        filterFoodItems();
+    });
 }
 let exploreMenu = document.querySelector(".explore-btn");
 if(exploreMenu !== null)
@@ -160,29 +153,187 @@ if(exploreMenu !== null)
 
 let categoryButtons = document.querySelectorAll(".category-btn");
 let menuFoodItems = document.querySelectorAll(".fooditems .fooditem");
-console.log(menuFoodItems);
+let selectedCategory = "all";
+
+
+function filterFoodItems()
+{
+    let searchText = searchInput.value.toLowerCase();
+    let visibleItems = 0;
+
+    menuFoodItems.forEach(function(foodItem)
+    {
+        let foodCategory = foodItem.dataset.category;
+        let foodName = foodItem.querySelector("h3").innerText.toLowerCase();
+
+        let categoryMatches = selectedCategory === "all" || foodCategory === selectedCategory;
+
+        let searchMatches = foodName.includes(searchText);
+
+        if(categoryMatches && searchMatches)
+        {
+            foodItem.style.display = "block";
+            visibleItems++;
+        }
+        else
+        {
+            foodItem.style.display = "none";
+        }
+    });
+
+    let noFoodMessage = document.querySelector("#no-food-message");
+
+    if(visibleItems === 0)
+    {
+        noFoodMessage.style.display = "block";
+    }
+    else
+    {
+        noFoodMessage.style.display = "none";
+    }
+}
 
 categoryButtons.forEach(function(button)
 {
     button.addEventListener("click",function()
 {
-    let selectedCategory = button.innerText.toLowerCase();
+    selectedCategory = button.innerText.toLowerCase();
     categoryButtons.forEach(function(categoryButton)
         {
             categoryButton.classList.remove("active");
         });
     button.classList.add("active");
-    menuFoodItems.forEach(function(foodItem)
+    filterFoodItems();
+});
+});
+
+let checkoutButton = document.querySelector("#checkout-btn");
+
+if(checkoutButton !== null)
 {
-    let foodCategory = foodItem.dataset.category;
-    if(selectedCategory === "all" || foodCategory === selectedCategory)
+    checkoutButton.addEventListener("click", function()
     {
-        foodItem.style.display = "block";
-    }
-    else
+        if(cart.length === 0)
+        {
+            alert("Your cart is empty.");
+        }
+        else
+        {
+            alert("Order placed successfully!");
+        }
+    });
+}
+
+
+// Login Form Validation
+
+let loginForm = document.querySelector("#login-form");
+
+if(loginForm !== null)
+{
+    loginForm.addEventListener("submit", function(event)
     {
-        foodItem.style.display = "none";
-    }
-});
-});
-});
+        event.preventDefault();
+
+        let email = document.querySelector("#email").value.trim();
+
+        let password = document.querySelector("#password").value.trim();
+
+
+        if(email === "")
+        {
+            alert("Please enter your email.");
+            return;
+        }
+
+
+        if(password === "")
+        {
+            alert("Please enter your password.");
+            return;
+        }
+
+
+        alert("Login  successful!");
+    });
+}
+
+
+// Register Form Validation
+
+let registerForm = document.querySelector("#register-form");
+
+if(registerForm !== null)
+{
+    registerForm.addEventListener("submit", function(event)
+    {
+        event.preventDefault();
+
+        let username =
+            document.querySelector("#username").value.trim();
+
+        let email =
+            document.querySelector("#register-email").value.trim();
+
+        let mobile =
+            document.querySelector("#mobile").value.trim();
+
+        let password =
+            document.querySelector("#register-password").value.trim();
+
+        let confirmPassword =
+            document.querySelector("#confirm-password").value.trim();
+
+
+        if(username === "")
+        {
+            alert("Please enter your username.");
+            return;
+        }
+
+
+        if(email === "")
+        {
+            alert("Please enter your email.");
+            return;
+        }
+
+
+        if(mobile === "")
+        {
+            alert("Please enter your mobile number.");
+            return;
+        }
+
+
+        if(password === "")
+        {
+            alert("Please enter your password.");
+            return;
+        }
+
+
+        if(password.length < 8)
+        {
+            alert("Password must contain at least 6 characters.");
+            return;
+        }
+
+
+        if(confirmPassword === "")
+        {
+            alert("Please confirm your password.");
+            return;
+        }
+
+
+        if(password !== confirmPassword)
+        {
+            alert("Passwords do not match.");
+            return;
+        }
+
+
+        alert("Registration successful!");
+    });
+}
